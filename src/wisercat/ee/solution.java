@@ -1,12 +1,12 @@
 package wisercat.ee;
 
-import java.io.*;
-import java.sql.Array;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
 
+import java.io.PrintWriter;
+import java.util.Arrays;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 
 public class solution {
 
