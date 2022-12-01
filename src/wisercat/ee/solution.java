@@ -1,38 +1,32 @@
 package wisercat.ee;
 
 import java.io.*;
+import java.sql.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 public class solution {
 
-    public static void main(String[] args) {
-        String line = "";
-        List<String> myList = new ArrayList<>();
-        try {
-            BufferedReader br = new BufferedReader(new FileReader("file.txt")); //  read the file
-            line += br.readLine(); // [1,2,3,4...10];
-            String line2 = line.substring(1, line.length() - 1); // 1,2,3,4,5,6,7... 10
-            List<String> divide = List.of(line2.replaceAll(" ", "").split(",")); // [1,2,3...10]
-            myList.addAll(divide); // [1,2,3,4...10]
-            System.out.println(myList);
-            for (int i = myList.size() - 1; i > -1; i--) {
-                String reverseNumbers = myList.get(i);
-                myList.remove(i);
-                myList.add(reverseNumbers);
-            }
-
-            System.out.println(myList);
-            File file = new File("file.txt");
-            PrintWriter pw = new PrintWriter(file);
-            pw.println(myList);
-            pw.close();
-
-
-        } catch (IOException e) {
-            System.out.println("Error" + e);
-
+    public static void main(String[] args) throws IOException {
+        FileReader fr = new FileReader("file.txt");
+        BufferedReader br = new BufferedReader(fr);
+        String elementsFromFile = br.readLine();  // all elements from file (read a file)
+        String onlyNumbers = elementsFromFile.substring(1, elementsFromFile.length() - 1);
+        String[] array = onlyNumbers.split(", ");
+        System.out.println("Prepared array: " + Arrays.toString(array)); // prepared array
+        for (int i = 0; i < array.length / 2; i++) {  // swap elements, example: [1,2,3,4] -> [4,2,3,1] -> [4,3,2,1]
+            String elements = array[i];
+            array[i] = array[array.length - i - 1];
+            array[array.length - i - 1] = elements;
         }
+        System.out.println("Reversed array: " + Arrays.toString(array)); // reversed array
+        File file = new File("file.txt");
+        PrintWriter pw = new PrintWriter(file);
+        pw.println(Arrays.toString(array));
+        pw.close();
+
     }
 }
